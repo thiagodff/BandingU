@@ -5,6 +5,8 @@
  */
 package view;
 
+import model.*;
+
 /**
  *
  * @author xande
@@ -15,7 +17,7 @@ public class BandingU {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Users users = new Users();
     }
     
 }
