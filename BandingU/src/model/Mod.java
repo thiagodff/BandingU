@@ -1,12 +1,11 @@
 package model;
 
-public class Mod extends User implements _Admin{
+public class Mod extends User{
 
     public Mod(String nome, String password, int ID) {
         super(nome, password, ID);
     }
 
-    @Override
     public boolean banUser(User user) {
         if (user.isValid() && !(user instanceof Admin)) {
             user.setValid(false);

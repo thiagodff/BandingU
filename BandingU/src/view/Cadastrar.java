@@ -6,6 +6,11 @@
 package view;
 
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import model.User;
 import model.Users;
 
@@ -125,6 +130,8 @@ public class Cadastrar extends javax.swing.JFrame {
         this.nomeText.setText("Nome já cadastrado!");
         this.btCadastrar.setBackground(Color.red);
         }
+        
+        
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void caixaSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaSenhaActionPerformed

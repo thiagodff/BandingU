@@ -9,4 +9,5 @@ public interface _Admin {
      */
     public boolean banUser(User user);
     
+    public User promoteUser(User user);
 }
