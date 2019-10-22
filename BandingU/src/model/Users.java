@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Users {
 
@@ -27,5 +28,19 @@ public class Users {
             }
         }
         return null;
+    }
+    
+    public User login(String nome, String senha){
+        Iterator<User> it = this.Bank.iterator();
+        while(it.hasNext()){
+            User candidate = it.next();
+            if(candidate.getNome().equals(nome) && candidate.getPassword().equals(senha))
+                return candidate;
+        }
+        return null;
+    }
+    
+    public int nextID(){
+        return this.Bank.size();
     }
 }

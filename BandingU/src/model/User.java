@@ -24,6 +24,14 @@ public class User {
         return ID;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public double getCredits() {
+        return credits;
+    }
+
     public User(String nome, String password, int ID) {
         this.nome = nome;
         this.password = password;
