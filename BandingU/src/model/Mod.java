@@ -14,4 +14,8 @@ public class Mod extends User{
         return false;
     }
     
+    public Service validate(Submission text, String nome, String desc){
+        return new Service(nome, desc, text.subText);
+    }
+    
 }

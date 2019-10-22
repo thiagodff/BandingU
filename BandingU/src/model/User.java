@@ -9,6 +9,7 @@ public class User implements Serializable{
     private int ID;
     private double credits;
     private boolean valid;
+    private boolean partner;
 
     public boolean isValid() {
         return valid;
@@ -34,12 +35,21 @@ public class User implements Serializable{
         return credits;
     }
 
+    public boolean isPartner() {
+        return partner;
+    }
+
+    public void setPartner(boolean partner) {
+        this.partner = partner;
+    }
+
     public User(String nome, String password, int ID) {
         this.nome = nome;
         this.password = password;
         this.ID = ID;
         this.credits = 0;
         this.valid = true;
+        this.partner = false;
     }
 
     public boolean login(String password) {
@@ -60,5 +70,15 @@ public class User implements Serializable{
     
     this.credits += value;
     return true;
+    }
+    
+    public Submission submit(String text){
+    
+        if(this.partner){
+        return new Submission(text);
+        }else{
+        return null;
+        }
+    
     }
 }
