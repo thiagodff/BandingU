@@ -17,10 +17,31 @@ public class BandingU {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
-        FileInputStream in = new FileInputStream("data.txt");
-        ObjectInputStream readData = new ObjectInputStream(in);
+        FileInputStream in;
+        ObjectInputStream readData;
+        final Users users;
 
-        Users users = (Users) readData.readObject();
+        try {
+            in = new FileInputStream("data.txt");
+            readData = new ObjectInputStream(in);
+
+            Users aux = (Users) readData.readObject();
+        } catch (Exception e) {
+            System.out.println("Banco de dados corrompido, iniciando um novo...");
+            File file = new File("data.txt");
+            file.createNewFile();
+            Users aux = new Users();
+            aux.insert(new User("admin", "root", 0));
+            FileOutputStream out = new FileOutputStream("data.txt");
+            ObjectOutputStream saveData = new ObjectOutputStream(out);
+            saveData.writeObject(aux);
+            out.close();
+        } finally {
+            in = new FileInputStream("data.txt");
+            readData = new ObjectInputStream(in);
+        }
+        
+        users = (Users) readData.readObject();
 
         WindowListener exitListener = new WindowAdapter() {
 
