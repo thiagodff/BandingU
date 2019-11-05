@@ -4,6 +4,7 @@ public class Admin extends User implements _Admin{
 
     public Admin(String nome, String password, int ID) {
         super(nome, password, ID);
+        rank = 2;
     }
 
     @Override

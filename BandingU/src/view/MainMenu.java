@@ -5,17 +5,60 @@
  */
 package view;
 
+import javax.swing.ListModel;
+import model.*;
+
 /**
  *
  * @author xande
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    private ServiceBank serviceBank;
+    private String[] services;
+    private ListModel<String> lista;
+    private Service[] servicesArray;
+    
+    
     /**
      * Creates new form MainMenu
+     * @param serviceBank
+     * @param me
      */
-    public MainMenu() {
+    public MainMenu(ServiceBank serviceBank, User me) {
+        this.serviceBank = serviceBank;
+        services = getTitles();
+        servicesArray = serviceBank.returnServices();
+        
+        lista = new javax.swing.AbstractListModel<String>() {
+            @Override
+            public int getSize() {
+                return services.length;
+            }
+
+            @Override
+            public String getElementAt(int index) {
+                return services[index];
+            }
+
+        };
+        
         initComponents();
+        
+        if(me.getRank() < 2){
+        this.btEdit.setVisible(false);
+        }
+    }
+    
+    public String[] getTitles(){
+        Service[] serviceArray = serviceBank.returnServices();
+        String[] names = new String[serviceArray.length];
+        
+        for(int i=0 ; i < serviceArray.length; i++){
+            names[i] = serviceArray[i].getTitle();
+        }
+        
+        return names;
     }
 
     /**
@@ -33,17 +76,20 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         labelDesc = new javax.swing.JLabel();
-        btReport = new javax.swing.JButton();
+        btEdit = new javax.swing.JButton();
         btContratar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tableJobs.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        tableJobs.setBackground(new java.awt.Color(204, 255, 255));
+        tableJobs.setModel(this.lista);
+        tableJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableJobs.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                tableJobsValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(tableJobs);
 
@@ -53,14 +99,19 @@ public class MainMenu extends javax.swing.JFrame {
         labelDesc.setToolTipText("");
         labelDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        btReport.setText("Reportar");
-        btReport.addActionListener(new java.awt.event.ActionListener() {
+        btEdit.setText("Editar");
+        btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReportActionPerformed(evt);
+                btEditActionPerformed(evt);
             }
         });
 
-        btContratar.setText("Contratar");
+        btContratar.setText("Fazer Proposta");
+        btContratar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btContratarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,31 +119,26 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btReport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btEdit)
+                        .addGap(56, 56, 56)
                         .addComponent(btContratar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(labelDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(labelDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btContratar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(btReport)))
+                .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(labelDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btEdit)
+                    .addComponent(btContratar))
                 .addContainerGap())
         );
 
@@ -104,8 +150,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,48 +166,25 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
+    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+        EditMenu edit = new EditMenu(servicesArray[this.tableJobs.getSelectedIndex()], serviceBank);
+        
+        edit.setVisible(true);
+    }//GEN-LAST:event_btEditActionPerformed
+
+    private void tableJobsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tableJobsValueChanged
+        this.labelTitle.setText(this.services[tableJobs.getSelectedIndex()]);
+        this.labelDesc.setText(String.format("<html><div WIDTH=%d>%s</div></html>", 350, this.servicesArray[tableJobs.getSelectedIndex()].getDescription()));
+    }//GEN-LAST:event_tableJobsValueChanged
+
+    private void btContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContratarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btReportActionPerformed
+    }//GEN-LAST:event_btContratarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btContratar;
-    private javax.swing.JButton btReport;
+    private javax.swing.JButton btEdit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;

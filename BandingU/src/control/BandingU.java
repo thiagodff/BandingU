@@ -14,13 +14,19 @@ public class BandingU {
     /**
      * @param args the command line arguments
      * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
         FileInputStream in;
         ObjectInputStream readData;
         final Users users;
-
+        
+        ServiceBank serviceBank = new ServiceBank();
+        
+        serviceBank.addService(new Service("servico teste", "preciso de ajuda carai", "mano quero uma ajuda"));
+        serviceBank.addService(new Service("guina bombeiro", "preciso de um guina para resolver problemas de vazamento de gás", "MANGUEIRA"));
+        
         try {
             in = new FileInputStream("data.txt");
             readData = new ObjectInputStream(in);
@@ -28,10 +34,11 @@ public class BandingU {
             Users aux = (Users) readData.readObject();
         } catch (Exception e) {
             System.out.println("Banco de dados corrompido, iniciando um novo...");
+            JOptionPane.showMessageDialog(null, "Banco de dados corrompido, iniciando um novo...");
             File file = new File("data.txt");
             file.createNewFile();
             Users aux = new Users();
-            aux.insert(new User("admin", "root", 0));
+            aux.insert(new Admin("admin", "root", 0));
             FileOutputStream out = new FileOutputStream("data.txt");
             ObjectOutputStream saveData = new ObjectOutputStream(out);
             saveData.writeObject(aux);
@@ -66,7 +73,7 @@ public class BandingU {
 
         in.close();
 
-        Login login = new Login(users);
+        Login login = new Login(users, serviceBank);
         login.setLocationRelativeTo(null);
         login.addWindowListener(exitListener);
         login.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

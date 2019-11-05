@@ -10,6 +10,7 @@ public class User implements Serializable{
     private double credits;
     private boolean valid;
     private boolean partner;
+    protected int rank;
 
     public boolean isValid() {
         return valid;
@@ -43,6 +44,12 @@ public class User implements Serializable{
         this.partner = partner;
     }
 
+    public int getRank() {
+        return rank;
+    }
+    
+    
+
     public User(String nome, String password, int ID) {
         this.nome = nome;
         this.password = password;
@@ -50,6 +57,7 @@ public class User implements Serializable{
         this.credits = 0;
         this.valid = true;
         this.partner = false;
+        this.rank = 0;
     }
 
     public boolean login(String password) {
