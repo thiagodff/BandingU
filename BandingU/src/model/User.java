@@ -83,7 +83,7 @@ public class User implements Serializable{
     public Submission submit(String text){
     
         if(this.partner){
-        return new Submission(text);
+        return new Submission(text, this);
         }else{
         return null;
         }

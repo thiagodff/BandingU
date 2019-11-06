@@ -16,7 +16,7 @@ public class Mod extends User{
     }
     
     public Service validate(Submission text, String nome, String desc){
-        return new Service(nome, desc, text.subText);
+        return new Service(nome, desc, text.subText, text.owner);
     }
     
 }

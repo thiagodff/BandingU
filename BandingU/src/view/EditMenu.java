@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JFrame;
 import model.Service;
 import model.ServiceBank;
 
@@ -16,15 +17,19 @@ public class EditMenu extends javax.swing.JFrame {
 
     private final Service service;
     private ServiceBank bank;
+    private final int index;
+    private MainMenu parent;
     /**
      * Creates new form EditMenu
      * @param service
      * @param bank
      */
-    public EditMenu(Service service, ServiceBank bank) {
+    public EditMenu(Service service, ServiceBank bank, int i, MainMenu parent) {
         this.service = service;
         this.bank = bank;
         initComponents();
+        index = i;
+        this.parent = parent;
     }
 
     /**
@@ -36,7 +41,7 @@ public class EditMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        fieldTitle = new javax.swing.JTextField();
         btCancel = new javax.swing.JButton();
         btConfirm = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -45,7 +50,7 @@ public class EditMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText(this.service.getTitle());
+        fieldTitle.setText(this.service.getTitle());
 
         btCancel.setText("Cancelar");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +81,7 @@ public class EditMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fieldTitle, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -90,7 +95,7 @@ public class EditMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -111,6 +116,11 @@ public class EditMenu extends javax.swing.JFrame {
 
     private void btConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmActionPerformed
         
+        bank.getServices().get(this.index).setTitle(this.fieldTitle.getText());
+        bank.getServices().get(this.index).setDescription(this.fieldDesc.getText());
+        
+        this.parent.refresh();
+        
         this.setVisible(false);
     }//GEN-LAST:event_btConfirmActionPerformed
 
@@ -119,8 +129,8 @@ public class EditMenu extends javax.swing.JFrame {
     private javax.swing.JButton btCancel;
     private javax.swing.JButton btConfirm;
     private javax.swing.JTextArea fieldDesc;
+    private javax.swing.JTextField fieldTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

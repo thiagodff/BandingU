@@ -131,6 +131,7 @@ public class Login extends javax.swing.JFrame {
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         Cadastrar form = new Cadastrar(this.bank);
+        form.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         form.setLocationRelativeTo(null);
         form.setVisible(true);
     }//GEN-LAST:event_buttonCadastrarActionPerformed

@@ -122,6 +122,11 @@ public class Cadastrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        if(this.caixaNome.getText().equals(" "))
+            return;
+        if(this.caixaSenha.getText().equals(" "))
+            return;
+        
         if(this.bank.getByName(this.caixaNome.getText()) == null){
             this.bank.insert(new User(this.caixaNome.getText(), String.copyValueOf(this.caixaSenha.getPassword()), bank.nextID()));
             this.setVisible(false);

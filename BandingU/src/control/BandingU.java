@@ -19,36 +19,53 @@ public class BandingU {
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
         FileInputStream in;
+        FileInputStream servIn;
         ObjectInputStream readData;
         final Users users;
-        
-        ServiceBank serviceBank = new ServiceBank();
-        
-        serviceBank.addService(new Service("servico teste", "preciso de ajuda carai", "mano quero uma ajuda"));
-        serviceBank.addService(new Service("guina bombeiro", "preciso de um guina para resolver problemas de vazamento de gás", "MANGUEIRA"));
-        
+
+        final ServiceBank serviceBank;
+
         try {
-            in = new FileInputStream("data.txt");
+            in = new FileInputStream("data");
             readData = new ObjectInputStream(in);
 
             Users aux = (Users) readData.readObject();
         } catch (Exception e) {
-            System.out.println("Banco de dados corrompido, iniciando um novo...");
             JOptionPane.showMessageDialog(null, "Banco de dados corrompido, iniciando um novo...");
-            File file = new File("data.txt");
+            File file = new File("data");
             file.createNewFile();
             Users aux = new Users();
             aux.insert(new Admin("admin", "root", 0));
-            FileOutputStream out = new FileOutputStream("data.txt");
+            FileOutputStream out = new FileOutputStream("data");
             ObjectOutputStream saveData = new ObjectOutputStream(out);
             saveData.writeObject(aux);
             out.close();
         } finally {
-            in = new FileInputStream("data.txt");
+            in = new FileInputStream("data");
             readData = new ObjectInputStream(in);
         }
-        
+
         users = (Users) readData.readObject();
+
+        try {
+            in = new FileInputStream("services");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Banco de dados corrompido, iniciando um novo...");
+            File file = new File("services");
+            file.createNewFile();
+            ServiceBank serv = new ServiceBank();
+            serv.addService(new Service("exemplo", "esse é um exemplo de pedido de ajuda", "MANO QUERO AJUDA", new Admin("admin", "root", 0)));
+            try (FileOutputStream servOut = new FileOutputStream("services")) {
+                ObjectOutputStream servOutStr = new ObjectOutputStream(servOut);
+                servOutStr.writeObject(serv);
+            }
+        } finally {
+            in = new FileInputStream("services");
+            readData = new ObjectInputStream(in);
+        }
+
+        serviceBank = (ServiceBank) readData.readObject();
 
         WindowListener exitListener = new WindowAdapter() {
 
@@ -60,9 +77,14 @@ public class BandingU {
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == 0) {
                     try {
-                        FileOutputStream out = new FileOutputStream("data.txt");
+                        FileOutputStream out = new FileOutputStream("data");
                         ObjectOutputStream saveData = new ObjectOutputStream(out);
                         saveData.writeObject(users);
+
+                        out = new FileOutputStream("services");
+                        saveData = new ObjectOutputStream(out);
+                        saveData.writeObject(serviceBank);
+
                     } catch (IOException e2) {
                         System.err.print("ERROR>" + e2.getMessage());
                     }

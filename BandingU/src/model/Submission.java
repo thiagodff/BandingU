@@ -1,9 +1,13 @@
 package model;
 
-public class Submission {
-    public String subText;
+public class Submission implements java.io.Serializable{
     
-    public Submission(String text){
+    protected String subText;
+    protected User owner;
+    
+    public Submission(String text, User owner){
     this.subText = text;
     }
+    
+    public Submission(){}
 }

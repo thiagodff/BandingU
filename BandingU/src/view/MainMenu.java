@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import model.*;
 
@@ -18,7 +22,7 @@ public class MainMenu extends javax.swing.JFrame {
     private String[] services;
     private ListModel<String> lista;
     private Service[] servicesArray;
-    
+    private User me;
     
     /**
      * Creates new form MainMenu
@@ -29,6 +33,7 @@ public class MainMenu extends javax.swing.JFrame {
         this.serviceBank = serviceBank;
         services = getTitles();
         servicesArray = serviceBank.returnServices();
+        this.me = me;
         
         lista = new javax.swing.AbstractListModel<String>() {
             @Override
@@ -61,6 +66,12 @@ public class MainMenu extends javax.swing.JFrame {
         return names;
     }
 
+    public void refresh(){
+        this.services = this.getTitles();
+        this.labelTitle.setText(this.services[tableJobs.getSelectedIndex()]);
+        this.labelDesc.setText(String.format("<html><div WIDTH=%d>%s</div></html>", 350, this.servicesArray[tableJobs.getSelectedIndex()].getDescription()));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +89,10 @@ public class MainMenu extends javax.swing.JFrame {
         labelDesc = new javax.swing.JLabel();
         btEdit = new javax.swing.JButton();
         btContratar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         jTextField1.setText("jTextField1");
 
@@ -86,6 +101,7 @@ public class MainMenu extends javax.swing.JFrame {
         tableJobs.setBackground(new java.awt.Color(204, 255, 255));
         tableJobs.setModel(this.lista);
         tableJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableJobs.setSelectedIndex(0);
         tableJobs.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 tableJobsValueChanged(evt);
@@ -93,10 +109,10 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableJobs);
 
-        labelTitle.setText("Title");
+        labelTitle.setText(this.services[0]);
 
-        labelDesc.setText("Desciption");
-        labelDesc.setToolTipText("");
+        labelDesc.setText(this.servicesArray[0].getDescription());
+        labelDesc.setToolTipText("mantenha em segredo");
         labelDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         btEdit.setText("Editar");
@@ -142,6 +158,22 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenuBar1.setMargin(new java.awt.Insets(0, 1, 0, 0));
+
+        jMenu1.setText("Fazer Pedido");
+        jMenu1.setMargin(new java.awt.Insets(0, 3, 0, 3));
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Pendentes");
+        jMenu2.setMargin(new java.awt.Insets(0, 3, 0, 3));
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Painel Admin");
+        jMenu3.setMargin(new java.awt.Insets(0, 3, 0, 3));
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,31 +192,42 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        EditMenu edit = new EditMenu(servicesArray[this.tableJobs.getSelectedIndex()], serviceBank);
         
+        EditMenu edit = new EditMenu(servicesArray[this.tableJobs.getSelectedIndex()], serviceBank, this.tableJobs.getSelectedIndex(), this);
+        edit.setLocationRelativeTo(null);
         edit.setVisible(true);
     }//GEN-LAST:event_btEditActionPerformed
-
+        
     private void tableJobsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tableJobsValueChanged
         this.labelTitle.setText(this.services[tableJobs.getSelectedIndex()]);
         this.labelDesc.setText(String.format("<html><div WIDTH=%d>%s</div></html>", 350, this.servicesArray[tableJobs.getSelectedIndex()].getDescription()));
     }//GEN-LAST:event_tableJobsValueChanged
 
     private void btContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContratarActionPerformed
-        // TODO add your handling code here:
+        if(this.me.getRank() < 1){
+            JOptionPane.showMessageDialog(null, "Apenas profissionais podem fazer propostas a clientes :c");
+        }else{
+            Proposta prop = new Proposta();
+            prop.setLocationRelativeTo(null);
+            prop.setVisible(true);
+        }
     }//GEN-LAST:event_btContratarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btContratar;
     private javax.swing.JButton btEdit;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
