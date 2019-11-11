@@ -35,7 +35,8 @@ public class BandingU {
             File file = new File("data");
             file.createNewFile();
             Users aux = new Users();
-            aux.insert(new Admin("admin", "root", 0));
+            //                   nome, password, nomeCompleto, email, telefone, endereco, provider, ID
+            aux.insert(new Admin("admin", "root", "adminastror", "adm@admin.com", "99999-9999", "area 51", true, 0));
             FileOutputStream out = new FileOutputStream("data");
             ObjectOutputStream saveData = new ObjectOutputStream(out);
             saveData.writeObject(aux);
@@ -55,7 +56,7 @@ public class BandingU {
             File file = new File("services");
             file.createNewFile();
             ServiceBank serv = new ServiceBank();
-            serv.addService(new Service("exemplo", "esse é um exemplo de pedido de ajuda", "MANO QUERO AJUDA", new Admin("admin", "root", 0)));
+            serv.addService(new Service("exemplo", "esse é um exemplo de pedido de ajuda", "MANO QUERO AJUDA", new Admin("admin", "root","adminastror", "adm@admin.com", "99999-9999", "area 51", true, 0)));
             try (FileOutputStream servOut = new FileOutputStream("services")) {
                 ObjectOutputStream servOutStr = new ObjectOutputStream(servOut);
                 servOutStr.writeObject(serv);

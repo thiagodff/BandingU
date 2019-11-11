@@ -45,6 +45,15 @@ public class Cadastrar extends javax.swing.JFrame {
         btCadastrar = new javax.swing.JToggleButton();
         caixaSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        provider = new javax.swing.JCheckBox();
+        nomeJLabel2 = new javax.swing.JLabel();
+        nomeCompletoBox = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        emailBox = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        telefoneBox = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        enderecoBox = new javax.swing.JTextField();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -53,7 +62,7 @@ public class Cadastrar extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jLabel1.setText("Cadastre-se");
 
-        nomeText.setText("Seu nome:");
+        nomeText.setText("Usuário");
 
         jLabel3.setText("Escolha uma senha:");
 
@@ -77,6 +86,28 @@ public class Cadastrar extends javax.swing.JFrame {
             }
         });
 
+        provider.setText("Sou prestador de serviço");
+
+        nomeJLabel2.setText("Nome Completo");
+
+        nomeCompletoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeCompletoBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("E-mail");
+
+        jLabel4.setText("Telefone");
+
+        jLabel5.setText("Endereço");
+
+        enderecoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enderecoBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,38 +115,65 @@ public class Cadastrar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(caixaNome)
-                                .addComponent(nomeText)
-                                .addComponent(jLabel3)
-                                .addComponent(btCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                                .addComponent(caixaSenha)))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(provider)
+                            .addComponent(nomeJLabel2)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(enderecoBox, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(telefoneBox, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(emailBox)
+                                .addComponent(nomeCompletoBox, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                .addComponent(caixaNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nomeText, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                .addComponent(caixaSenha, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel1)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nomeText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(caixaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(caixaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nomeJLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomeCompletoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(telefoneBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enderecoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(provider)
+                .addGap(18, 18, 18)
                 .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(15, 15, 15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -128,7 +186,8 @@ public class Cadastrar extends javax.swing.JFrame {
             return;
         
         if(this.bank.getByName(this.caixaNome.getText()) == null){
-            this.bank.insert(new User(this.caixaNome.getText(), String.copyValueOf(this.caixaSenha.getPassword()), bank.nextID()));
+            this.bank.insert(new User(this.caixaNome.getText(), String.copyValueOf(this.caixaSenha.getPassword()), this.nomeCompletoBox.getText(), this.emailBox.getText(), this.telefoneBox.getText(), this.enderecoBox.getText(), this.provider.isEnabled(), bank.nextID()));
+            System.out.println(this.provider.isEnabled());
             this.setVisible(false);
         }
         else{
@@ -147,16 +206,33 @@ public class Cadastrar extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void nomeCompletoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeCompletoBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeCompletoBoxActionPerformed
+
+    private void enderecoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enderecoBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btCadastrar;
     private javax.swing.JTextField caixaNome;
     private javax.swing.JPasswordField caixaSenha;
+    private javax.swing.JTextField emailBox;
+    private javax.swing.JTextField enderecoBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField nomeCompletoBox;
+    private javax.swing.JLabel nomeJLabel2;
     private javax.swing.JLabel nomeText;
+    private javax.swing.JCheckBox provider;
+    private javax.swing.JTextField telefoneBox;
     // End of variables declaration//GEN-END:variables
     private Users bank;
 

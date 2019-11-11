@@ -2,8 +2,8 @@ package model;
 
 public class Admin extends User implements _Admin{
 
-    public Admin(String nome, String password, int ID) {
-        super(nome, password, ID);
+    public Admin(String nome, String password, String nomeCompleto, String email, String telefone, String endereco, boolean provider, int ID) {
+        super(nome, password, nomeCompleto, email, telefone, endereco, provider, ID);
         rank = 2;
     }
 
@@ -18,7 +18,7 @@ public class Admin extends User implements _Admin{
 
     @Override
     public User promoteUser(User user) {
-        Admin aux = new Admin(user.getNome(), user.getPassword(), user.getID());
+        Admin aux = new Admin(user.getNome(), user.getPassword(), user.getNomeCompleto(), user.getEmail(), user.getTelefone(), user.getEndereco(), user.isProvider(), user.getID());
         return aux;
     }
 

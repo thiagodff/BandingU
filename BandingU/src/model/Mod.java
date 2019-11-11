@@ -2,8 +2,8 @@ package model;
 
 public class Mod extends User{
 
-    public Mod(String nome, String password, int ID) {
-        super(nome, password, ID);
+    public Mod(String nome, String password, String nomeCompleto, String email, String telefone, String endereco, boolean provider, int ID) {
+        super(nome, password, nomeCompleto, email, telefone, endereco, provider, ID);
         rank = 1;
     }
 
